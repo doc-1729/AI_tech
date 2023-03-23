@@ -1,9 +1,122 @@
-# Регулятор климатической установки на нечеткой логике
+# Нечеткая логика
 
 import matplotlib.pyplot as plt
 import numpy as np
-# import seaborn as sns
 
+# Примеры функций принадлежности
+
+# Кусочно-линейные функции принадлежности
+Xmin, Xmax = 0.0, 100.0  # Границы универсума
+p_x = [20, 40, 60, 80]  # Точки перегиба. Массив д.б. по возрастанию.
+
+# Функции принадлежности
+# Скошенный фронт
+def MF_01(x, a, b):
+    if a <= x <= b:
+        return (x - a) / (b - a)
+    else:
+        return 0 if x < a else 1
+
+
+# Скошенный срез
+def MF_10(x, a, b):
+    if a <= x <= b:
+        return 1 - (x - a) / (b - a)
+    else:
+        return 1 if x < a else 0
+
+
+# Трапеция
+def MF_0110(x, a, b, c, d):
+    if x < a or x > d:
+        return 0
+    elif a <= x <= b:
+        return (x - a) / (b - a)
+    elif b < x < c:
+        return 1
+    else:
+        return 1 - (x - c) / (d - c)
+
+
+# Трегольник
+def MF_010(x, a, b, c):
+    if x < a or x > c:
+        return 0
+    elif a <= x <= b:
+        return (x - a) / (b - a)
+    else:
+        return 1 - (x - b) / (c - b)
+
+
+xlist = np.linspace(Xmin, Xmax, 200)
+ylist = np.asarray([MF_01(x, p_x[2], p_x[3]) for x in xlist])
+
+fig, ax = plt.subplots(figsize=(4, 2.5))
+ax.set_xlabel('$x$')
+ax.set_ylabel('$\mu (x)$')
+plt.xlim(Xmin, Xmax)
+
+plt.plot(xlist, ylist,
+         linewidth=3, color='orange', linestyle='--', alpha=0.7)
+
+ylist = np.asarray([MF_10(x, p_x[0], p_x[1]) for x in xlist])
+plt.plot(xlist, ylist,
+         linewidth=3, color='green', linestyle='-.', alpha=0.7)
+
+ylist = np.asarray([MF_0110(x, p_x[0], p_x[1], p_x[2], p_x[3]) for x in xlist])
+plt.plot(xlist, ylist,
+         linewidth=3, color='blue', linestyle='-', alpha=0.7)
+
+# ylist = np.asarray([MF_010(x, p_x[0], p_x[1], p_x[2]) for x in xlist])
+# plt.plot(xlist, ylist,
+#         linewidth = 3, color='blue', linestyle = '-', alpha=0.7)
+
+
+plt.text(3, 0.6, s="мало", fontsize=12, bbox=dict(color='w'), rotation=0)
+plt.text(40, 0.5, s="норма", fontsize=12, bbox=dict(color='w'), rotation=0)
+plt.text(78, 0.6, s="много", fontsize=12, bbox=dict(color='w'), rotation=0)
+ax.grid()
+plt.show()
+
+
+# Гауссоида
+Xmin, Xmax = 0.0, 100.0  # Границы универсума
+p_x = [20, 40, 60, 80]  # Точки перегиба. Массив по возрастанию.
+
+xlist = np.linspace(Xmin, Xmax, 200)
+ylist = np.exp(-(xlist-60)**2/100)
+fig, ax = plt.subplots(figsize = (4,2.5))
+ax.set_xlabel('$x$')
+ax.set_ylabel('$\mu (x)$')
+plt.xlim(Xmin, Xmax)
+plt.plot(xlist, ylist,
+        linewidth = 3, color='blue', linestyle = '-', alpha=0.7)
+plt.text(50, 0.5, s = "$x=60$", fontsize=12, bbox=dict(color='w'), rotation=0)
+ax.grid()
+plt.show()
+
+
+# Сигмоиды
+Xmin, Xmax = 0.0, 100.0  # Границы универсума
+p_x = [20, 40, 60, 80]  # Точки перегиба. Массив по возрастанию.
+xlist = np.linspace(Xmin, Xmax, 200)
+ylist = 1 / (1 + np.exp(-(xlist - 80)/2))
+fig, ax = plt.subplots(figsize = (4,2.5))
+ax.set_xlabel('$x$')
+ax.set_ylabel('$\mu (x)$')
+plt.xlim(Xmin, Xmax)
+plt.plot(xlist, ylist,
+        linewidth = 3, color='blue', linestyle = '-', alpha=0.7)
+ylist = 1 - 1 / (1 + np.exp(-(xlist - 20)/2))
+plt.plot(xlist, ylist,
+        linewidth = 3, color='blue', linestyle = '--', alpha=0.7)
+ax.grid()
+plt.show()
+
+
+#
+# Регулятор климатической установки на нечеткой логике
+#
 fig, axes = plt.subplots(nrows=4, ncols=3, figsize = (10, 7.5), constrained_layout=True)
 
 # Лингвистическая переменная "температура в салоне автомобиля"

@@ -1,3 +1,5 @@
+# Регулятор климатической установки на нечеткой логике
+
 import matplotlib.pyplot as plt
 import numpy as np
 # import seaborn as sns

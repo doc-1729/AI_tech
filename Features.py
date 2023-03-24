@@ -13,9 +13,9 @@ rnd.seed(1000)  # Инициализация генератора псевдос
 N = 13  # Число объектов в каждом классе
 
 # Генерация случайных значений признаков объектов класса y=2 для обучающей выборки
-m_x1_2 = 6;
-sigma_x1_2 = 1.5;
-m_x2_2 = 0;
+m_x1_2 = 6
+sigma_x1_2 = 1.5
+m_x2_2 = 0
 sigma_x2_2 = 0.7
 x1_2 = np.asarray([rnd.gauss(m_x1_2, sigma_x1_2) for i in range(N)])
 x2_2 = np.asarray([rnd.gauss(m_x2_2, sigma_x2_2) for i in range(N)])

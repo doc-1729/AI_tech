@@ -4,8 +4,6 @@
 Условные распределения / плотности вероятностей двух признаков объектов
 
 """
-
-import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
@@ -62,12 +60,10 @@ plt.show()
 
 """
 # Визуализация условных выборочных распределений признаков
-fig = plt.figure()
 sns.jointplot(data=df, x="x1", y="x2", hue="class")
 plt.show()
 
 # Визуализация условных выборочных распределений признаков
-fig = plt.figure()
 sns.jointplot(data=df, x="x1", y="x2",)
 plt.show()
 
@@ -85,7 +81,6 @@ df = pd.read_csv('iris.csv')
 
 # Построение всех проекций четырехмерного признакового пространства на плоскость
 #            и условных выборочных законов распределения признаков
-plt.figure(figsize=(10,8), dpi= 80)
 sns.pairplot(df, kind="reg", hue="class")
 plt.show()
 
@@ -97,7 +92,6 @@ plt.show()
 import math
 import numpy as np
 import matplotlib.pyplot as plt
-import scipy.stats as sps
 
 # Функция вычисления плотности нормального распределения
 def f_norm(x, m = 0.0, s = 1.0):
@@ -148,7 +142,6 @@ plt.show()
 
 """
 Многомерное распределение вероятностеq
-
 """
 import math
 import matplotlib.pyplot as plt

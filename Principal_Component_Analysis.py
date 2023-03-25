@@ -74,3 +74,40 @@ ax.grid()  # формирует сетку
 ax.set_xlim(-8, 8)
 ax.set_ylim(-5, 5)
 plt.show()
+
+
+"""
+Метод главных компонент для обучающей выборки из объектов 2-х классов
+в 2D признаковом пространве
+"""
+# import pandas as pd
+# import seaborn as sns
+
+# Чтение набора данных из файла в DataFrame
+# df = pd.read_csv('x1_x2_class_distanse_2x13.csv')
+df = pd.read_csv('x1_x2_class_2x50.csv')
+
+# Метод главных компонент (PCA)
+pca = PCA(n_components = 2)  # задание параметров PCA
+F = pca.fit_transform(df[['x1','x2']])  # Новые координаты
+
+# Преобразование массива новых координат в формат Data Frame
+df2 = pd.DataFrame (F, columns = ['PCA1','PCA2'])
+df2['class'] = df['class']
+
+# Индикация трех графиков в ряд
+fig, axes = plt.subplots(nrows=1, ncols=3, figsize = (10, 2.5), constrained_layout=True)
+mark = {'y=1': "s", "y=2": "D"}
+# Визуализаци исходного датасета
+plt.subplot(1, 3, 1)
+sns.scatterplot(data = df, x = "x1", y = "x2", hue = "class", style = "class", s = 100, markers = mark)
+axes[0].set(title = '$X(x_1,x_2)$')
+# Индикация преобразованного датасета
+plt.subplot(1, 3, 2)
+sns.scatterplot(data = df2, x = "PCA1", y = "PCA2", hue = "class", style = "class", s = 100, markers = mark)
+axes[1].set(title = '$F(PCA1,PCA2)$')
+# Индикация преобразованного датасета после исключения неинформативного признака
+plt.subplot(1, 3, 3)
+sns.scatterplot(data = df2, x = "PCA1", y = 0, hue = "class", style = "class", s = 100, markers = mark)
+axes[2].set(title = '$F(PCA1)$')
+plt.show()

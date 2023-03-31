@@ -215,7 +215,7 @@ def lm_func(w, x):
     return w[0] + w[1]*x
 plt.plot([x_min, x_max], [lm_func(Wend, x_min), lm_func(Wend, x_max)],
         linewidth = 2, color='black', linestyle = '-', alpha=0.7)
-plt.text(2.5, -0.3, s = r'$g(x,w*)=0$', fontsize=12, rotation=21)
+plt.text(2.5, -0.3, s = r'$g(x,w*)$', fontsize=12, rotation=21)
 
 # Индикация маркеров в ответах линейной части обученного классификатора
 y_end = Wend[0] + Wend[1] * X1  # Ответы линейной части классификатора обученного градиентным спуском

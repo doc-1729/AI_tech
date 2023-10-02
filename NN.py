@@ -28,6 +28,19 @@ df = pd.read_csv('wdbc.data',
 # Удаление столбца с ID
 df.drop(columns = ['ID'], axis = 1, inplace=True)
 
+# Первичное изучение датасета. Смотрим статистику по всем числовым колонкам
+# df_stats = df.describe()
+# print(df_stats)
+
+# Проверяем доли пропусков в колонках
+# for col in df.columns:
+#     p_null = np.mean(df[col].isnull())
+#     print('{} - {}%'.format(col, round(p_null*100)))
+
+# Удаляяем из dataset строки с пустыми значениями
+# df = df.dropna()
+# df
+
 # Нормализация данных. Смещение - по медиане, сжатие по СКО
 df[numeric_column_names] = (df[numeric_column_names]-df[numeric_column_names].median())/df[numeric_column_names].std()
 
